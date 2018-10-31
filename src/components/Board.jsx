@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Square from './Square';
+import GameOverModal from './GameOverModal';
 import { randomizeBoard } from '../utils/index';
 import { DIAMOND } from '../constants/index';
 
@@ -29,7 +30,6 @@ class Board extends Component {
 		return(
 			<div>
 				<h4>Score: {score}</h4>
-				{ isComplete && <h4> GAME OVER! </h4> }
 				<ul className="board">
 					{
 						squares.map((square, index) => 
@@ -42,6 +42,7 @@ class Board extends Component {
 						)
 					}
 				</ul>
+				{ isComplete && <GameOverModal score={score} /> }
 			</div>
 		)
 	}
