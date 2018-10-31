@@ -37,7 +37,7 @@ class Board extends Component {
 		const unOpenedSquareIndices = this.squareIndices.filter( idx => !squares[idx].opened);
 		return(
 			<div>
-				<h4>Score: {score}</h4>
+				<h4 className="score">Score: {score}</h4>
 				<ul className="board">
 					{
 						squares.map((square, index) => 

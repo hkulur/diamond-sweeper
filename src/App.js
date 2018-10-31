@@ -10,6 +10,7 @@ class App extends Component {
         <h1>
           Diamond Sweeper
         </h1>
+        <p>There are 8 diamonds hidden on the board. Click on the square to open it. If the square was hiding a diamond, the diamond appears. Your score is the number of unturned squares</p>
         <Board />
       </div>
     );
