@@ -33,6 +33,7 @@ img{
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-top: 5px;
 }
 
 .board{
