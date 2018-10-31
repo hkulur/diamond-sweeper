@@ -22,6 +22,9 @@ img{
 .App h1{
   font-size: 2rem;
 }
+.App h4{
+  font-size: 1rem;
+}
 
 .board{
   display: flex;
@@ -33,4 +36,39 @@ img{
   height: 100px;
   border: 1px solid #444;
   cursor: pointer;
+  perspective: 1000px;
+}
+
+.flip-container {
+  perspective: 1000px;
+}
+.flip-container.open .flipper {
+  transform: rotateY(180deg);
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
 }
