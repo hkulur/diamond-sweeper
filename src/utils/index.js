@@ -9,7 +9,9 @@ export function randomizeBoard(size){
 		const randomIndex = getRandomInt(size);
 		const diamondIndex = (i * size) + randomIndex;
 		board[diamondIndex] = DIAMOND;
-		if(diamondIndex+1 % size === 0){
+		const isDiamondinLastColumn = (diamondIndex + 1) % size === 0;
+		const isDiamondLastElement = board.length === diamondIndex;
+		if(isDiamondinLastColumn || isDiamondLastElement){
 			board[diamondIndex-1] = HINT;
 		}else{
 			board[diamondIndex+1] = HINT;

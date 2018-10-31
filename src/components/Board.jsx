@@ -13,7 +13,7 @@ class Board extends Component {
 	render(){
 		const  { squares } = this.state;
 		return(
-			<ul>
+			<ul className="board">
 				{
 					squares.map(value => 
 						<Square value={value}/>
