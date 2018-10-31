@@ -10,7 +10,12 @@ class Board extends Component {
 		const squares = randomizeBoard(8).map( item => ({value : item, opened: false}));
 		this.state = {
 			squares,
-		}
+			lastClicked: null
+		};
+		this.squareIndices = squares.reduce((acc, item, idx) => {
+			if(item.value === DIAMOND) acc.push(idx);
+			return acc;
+		},[]);
 	}
 
 	updateScore = (index) => {
@@ -18,15 +23,18 @@ class Board extends Component {
 		squares[index] = {
 			...squares[index], opened: true
 		};
+		const lastClicked = index;
 		this.setState({
-			squares
+			squares,
+			lastClicked
 		});
 	}
 
 	render(){
-		const  { squares } = this.state;
+		const  { squares, lastClicked } = this.state;
 		const score = squares.filter(s => !s.opened).length;
 		const isComplete = squares.filter(s => s.opened && s.value === DIAMOND ).length === 8;
+		const unOpenedSquareIndices = this.squareIndices.filter( idx => !squares[idx].opened);
 		return(
 			<div>
 				<h4>Score: {score}</h4>
@@ -38,6 +46,8 @@ class Board extends Component {
 								opened={square.opened}
 								updateScore={this.updateScore}
 								index={index}
+								squareIndices={unOpenedSquareIndices}
+								lastClicked={lastClicked === index}
 							/>
 						)
 					}

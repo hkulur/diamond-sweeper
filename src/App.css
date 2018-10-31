@@ -101,3 +101,13 @@ img{
 .back {
   transform: rotateY(180deg);
 }
+
+.left.back{
+ transform: rotateZ(180deg) rotateY(180deg); 
+}
+.top.back{
+ transform: rotateZ(90deg) rotateY(180deg); 
+}
+.bottom.back{
+ transform: rotateZ(270deg) rotateY(180deg); 
+}
