@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Square from './Square';
+import { randomizeBoard } from '../utils/index';
 
 class Board extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			squares : Array(64).fill(null)
+			squares : randomizeBoard(8)
 		}
 	}
 
@@ -14,8 +15,8 @@ class Board extends Component {
 		return(
 			<ul>
 				{
-					squares.map(square => 
-						<Square />
+					squares.map(value => 
+						<Square value={value}/>
 					)
 				}
 			</ul>

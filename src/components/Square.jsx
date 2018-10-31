@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Square = (square) => (
-	<li>"square"</li>
+const Square = ({value}) => (
+	<li>{value}</li>
 );
 
 export default Square;
