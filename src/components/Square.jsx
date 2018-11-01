@@ -21,9 +21,9 @@ const getAssetURL = (value, lastClicked) => {
 	}
 }
 /*based on the closest diamond, return the appropriate direction className which will rotate the arrow if needed */
-const getDirection = (squareIndices, index, size) =>{
-	var nearestIndex = squareIndices.find(item => Math.floor(item / size) === Math.floor(index / size));
-	var isSquareAbove = squareIndices.find(item => Math.floor(item / size) < Math.floor(index / size));
+const getDirection = (diamondIndices, index, size) =>{
+	var nearestIndex = diamondIndices.find(item => Math.floor(item / size) === Math.floor(index / size));
+	var isSquareAbove = diamondIndices.find(item => Math.floor(item / size) < Math.floor(index / size));
 	if( nearestIndex > -1) {
 		return nearestIndex > index ? 'right' : 'left';
 	}else if(isSquareAbove){
@@ -38,8 +38,8 @@ class Square extends React.Component {
 		e.currentTarget.classList.add('open');
 	}
 	render(){
-		const { value, index, updateScore, squareIndices, lastClicked, opened } = this.props;
-		const direction = getDirection(squareIndices, index, BOARD_SIZE);
+		const { value, index, updateScore, diamondIndices, lastClicked, opened } = this.props;
+		const direction = getDirection(diamondIndices, index, BOARD_SIZE);
 		return (
 			<li
 				onClick={(e) => {

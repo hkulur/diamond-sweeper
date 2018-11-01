@@ -7,12 +7,13 @@ import { DIAMOND, BOARD_SIZE } from '../constants/index';
 class Board extends Component {
 	constructor(props){
 		super(props);
-		const squares = randomizeBoard(BOARD_SIZE).map( item => ({value : item, opened: false}));
+		const squares = randomizeBoard(BOARD_SIZE).map( item => ({value : item, opened: false})); //generate a board with squares at random place and update the state
 		this.state = {
 			squares,
 			lastClicked: null
 		};
-		this.squareIndices = squares.reduce((acc, item, idx) => {
+		// Since the diamond indices are pre decided and wont changed until reload, no need to put it as part of the state. Compute once and store
+		this.diamondIndices = squares.reduce((acc, item, idx) => {
 			if(item.value === DIAMOND) acc.push(idx);
 			return acc;
 		},[]);
@@ -34,7 +35,7 @@ class Board extends Component {
 		const  { squares, lastClicked } = this.state;
 		const score = squares.filter(s => !s.opened).length; // calculate score based on unopened
 		const isComplete = squares.filter(s => s.opened && s.value === DIAMOND ).length === BOARD_SIZE; // see if board is complete, need to show modal then
-		const unOpenedSquareIndices = this.squareIndices.filter( idx => !squares[idx].opened); // needed to calculate the nearest hidden diamond
+		const unopenedDiamondIndices = this.diamondIndices.filter( idx => !squares[idx].opened); // needed to calculate the nearest hidden diamond
 		return(
 			<div>
 				<h4 className="score">Score: {score}</h4>
@@ -47,7 +48,7 @@ class Board extends Component {
 								opened={square.opened}
 								updateScore={this.updateScore}
 								index={index}
-								squareIndices={unOpenedSquareIndices}
+								diamondIndices={unopenedDiamondIndices}
 								lastClicked={lastClicked === index}
 							/>
 						)
