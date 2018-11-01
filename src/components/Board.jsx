@@ -50,7 +50,6 @@ class Board extends Component {
 	}
 
 	clearBoard = () => {
-		const squares = [...this.state.squares];
 		localStorage.removeItem('squares');
 		window.location.reload();
 	}
