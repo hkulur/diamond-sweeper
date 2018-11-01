@@ -1,3 +1,4 @@
+/*functional component, takes the score as input and displays the modal */
 import React from 'react';
 
 const GameOverModal = ({ score }) => (

@@ -1,9 +1,10 @@
 import React from 'react';
-import { DIAMOND, HINT, QUESTION } from '../constants/index';
+import { DIAMOND, BOARD_SIZE, QUESTION } from '../constants/index';
 import diamond from '../assets/diamond.png';
 import arrow from '../assets/arrow.png';
 import question from '../assets/question.png';
 
+/* given the value of square and whether lastclicked, return the asset to be shown, for empty showing a 1x1 pixel */
 const getAssetURL = (value, lastClicked) => {
 	switch(value) {
 		case DIAMOND:
@@ -19,7 +20,7 @@ const getAssetURL = (value, lastClicked) => {
 			return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
 	}
 }
-
+/*based on the closest diamond, return the appropriate direction className which will rotate the arrow if needed */
 const getDirection = (squareIndices, index, size) =>{
 	var nearestIndex = squareIndices.find(item => Math.floor(item / size) === Math.floor(index / size));
 	var isSquareAbove = squareIndices.find(item => Math.floor(item / size) < Math.floor(index / size));
@@ -33,15 +34,12 @@ const getDirection = (squareIndices, index, size) =>{
 }
 
 class Square extends React.Component {
-	constructor(props){
-		super(props);
-	}
 	handleClick = (e) => {
 		e.currentTarget.classList.add('open');
 	}
 	render(){
 		const { value, index, updateScore, squareIndices, lastClicked, opened } = this.props;
-		const direction = getDirection(squareIndices, index, 8);
+		const direction = getDirection(squareIndices, index, BOARD_SIZE);
 		return (
 			<li
 				onClick={(e) => {
@@ -54,8 +52,8 @@ class Square extends React.Component {
 				className="flip-container"
 			>
 				<div className="flipper">
-					<img className={lastClicked && value !== DIAMOND ? `${direction} back`: "back"} src={getAssetURL(value, lastClicked)} />
-					<img className="front" src={getAssetURL(QUESTION)} />
+					<img alt={value} className={lastClicked && value !== DIAMOND ? `${direction} back`: "back"} src={getAssetURL(value, lastClicked)} />
+					<img alt={QUESTION} className="front" src={getAssetURL(QUESTION)} />
 				</div>
 			</li>
 		)

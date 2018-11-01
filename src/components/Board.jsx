@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Square from './Square';
 import GameOverModal from './GameOverModal';
 import { randomizeBoard } from '../utils/index';
-import { DIAMOND } from '../constants/index';
+import { DIAMOND, BOARD_SIZE } from '../constants/index';
 
 class Board extends Component {
 	constructor(props){
 		super(props);
-		const squares = randomizeBoard(8).map( item => ({value : item, opened: false}));
+		const squares = randomizeBoard(BOARD_SIZE).map( item => ({value : item, opened: false}));
 		this.state = {
 			squares,
 			lastClicked: null
@@ -32,16 +32,17 @@ class Board extends Component {
 
 	render(){
 		const  { squares, lastClicked } = this.state;
-		const score = squares.filter(s => !s.opened).length;
-		const isComplete = squares.filter(s => s.opened && s.value === DIAMOND ).length === 8;
-		const unOpenedSquareIndices = this.squareIndices.filter( idx => !squares[idx].opened);
+		const score = squares.filter(s => !s.opened).length; // calculate score based on unopened
+		const isComplete = squares.filter(s => s.opened && s.value === DIAMOND ).length === BOARD_SIZE; // see if board is complete, need to show modal then
+		const unOpenedSquareIndices = this.squareIndices.filter( idx => !squares[idx].opened); // needed to calculate the nearest hidden diamond
 		return(
 			<div>
 				<h4 className="score">Score: {score}</h4>
 				<ul className="board">
 					{
 						squares.map((square, index) => 
-							<Square 
+							<Square
+								key={index}
 								value={square.value} 
 								opened={square.opened}
 								updateScore={this.updateScore}

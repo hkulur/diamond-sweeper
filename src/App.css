@@ -1,3 +1,4 @@
+/* generic css */
 *{
   box-sizing: border-box;
 }
@@ -12,6 +13,7 @@ li{
 img{
   max-width: 100%;
 }
+/* board specific css */
 .App {
   text-align: center;
   font-family: Arial;
@@ -121,6 +123,8 @@ img{
 .bottom.back{
  transform: rotateZ(270deg) rotateY(180deg); 
 }
+
+/* mobile viewport css */
 
 @media only screen and (max-width: 800px) {
     .App {
