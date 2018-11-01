@@ -23,6 +23,7 @@ class Board extends Component {
 		},[]);
 	}
 
+	// update score on square click
 	updateScore = (index) => {
 		const squares = [...this.state.squares];
 		squares[index] = {
@@ -35,9 +36,17 @@ class Board extends Component {
 		});
 	}
 
+	//save progress to local storage
 	saveProgress = () => {
 		const squares = [...this.state.squares];
-		localStorage.setItem('squares', JSON.stringify(squares));
+		localStorage.setItem('squares', JSON.stringify(squares)); 
+
+		//show notification
+		const $body = document.getElementsByTagName('body')[0];
+		$body.classList.add('notify');
+		setTimeout(function(){
+			$body.classList.remove('notify');
+		},2000)
 	}
 
 	clearBoard = () => {
@@ -82,6 +91,9 @@ class Board extends Component {
 					}
 				</ul>
 				{ isComplete && <GameOverModal score={score} /> }
+				<div className="notification">
+					Progress saved!
+				</div>
 			</div>
 		)
 	}

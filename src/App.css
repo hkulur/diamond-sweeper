@@ -71,6 +71,24 @@ img{
     background-color: #222;
 }
 
+/*notification css*/
+.notification {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    padding: 20px 40px;
+    background: #27ae60;
+    color: #fff;
+    transition: all 0.4s ease-out;
+    opacity: 0;
+    z-index: 10;
+    transform: translate3d(400px,0,0);
+}
+
+.notify .notification{
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
 /* modal css */
 .modal-overlay{
   position: fixed;
@@ -155,5 +173,10 @@ img{
       flex: 1 1 12.5%;
       height: 0;
       padding: 0.5% 5px 12%;
+    }
+    .notification{
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
     }
 }
