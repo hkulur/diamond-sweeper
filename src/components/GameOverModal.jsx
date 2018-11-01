@@ -8,6 +8,7 @@ const GameOverModal = ({ score }) => (
 			<h4> Score: {score} </h4>
 			<button
 				onClick={() => {
+					localStorage.removeItem('squares');
 					window.location.reload();
 				}}
 			> 
