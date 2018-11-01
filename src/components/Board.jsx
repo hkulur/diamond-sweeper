@@ -7,7 +7,11 @@ import { DIAMOND, BOARD_SIZE } from '../constants/index';
 class Board extends Component {
 	constructor(props){
 		super(props);
-		const squares = randomizeBoard(BOARD_SIZE).map( item => ({value : item, opened: false})); //generate a board with squares at random place and update the state
+		let squares = JSON.parse(localStorage.getItem('squares')); // retrive locally stored state first
+		//if null, generate a board with squares at random place and update the state
+		if(!squares){
+			squares = randomizeBoard(BOARD_SIZE).map( item => ({value : item, opened: false}));
+		}
 		this.state = {
 			squares,
 			lastClicked: null
@@ -31,6 +35,17 @@ class Board extends Component {
 		});
 	}
 
+	saveProgress = () => {
+		const squares = [...this.state.squares];
+		localStorage.setItem('squares', JSON.stringify(squares));
+	}
+
+	clearBoard = () => {
+		const squares = [...this.state.squares];
+		localStorage.removeItem('squares');
+		window.location.reload();
+	}
+
 	render(){
 		const  { squares, lastClicked } = this.state;
 		const score = squares.filter(s => !s.opened).length; // calculate score based on unopened
@@ -39,6 +54,18 @@ class Board extends Component {
 		return(
 			<div>
 				<h4 className="score">Score: {score}</h4>
+				<div className="cta-container">
+					<button
+						onClick={this.saveProgress}
+					>
+						SAVE
+					</button>
+					<button
+						onClick={this.clearBoard}
+					>
+						RESET
+					</button>
+				</div>
 				<ul className="board">
 					{
 						squares.map((square, index) => 

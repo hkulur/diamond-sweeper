@@ -34,9 +34,6 @@ const getDirection = (diamondIndices, index, size) =>{
 }
 
 class Square extends React.Component {
-	handleClick = (e) => {
-		e.currentTarget.classList.add('open');
-	}
 	render(){
 		const { value, index, updateScore, diamondIndices, lastClicked, opened } = this.props;
 		const direction = getDirection(diamondIndices, index, BOARD_SIZE);
@@ -46,10 +43,9 @@ class Square extends React.Component {
 					if(opened){
 						return;
 					}
-					this.handleClick(e);
 					updateScore(index); 
 				}}
-				className="flip-container"
+				className={opened ? "flip-container open" : "flip-container"}
 			>
 				<div className="flipper">
 					<img alt={value} className={lastClicked && value !== DIAMOND ? `${direction} back`: "back"} src={getAssetURL(value, lastClicked)} />
